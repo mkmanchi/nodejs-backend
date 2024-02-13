@@ -1,0 +1,20 @@
+{
+  "name": "mockserver",
+  "version": "1.0.0",
+  "description": "Backed api's to generate fake responses.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "prettier": "prettier . --write",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mahendra",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "prettier": "^3.2.5"
+  }
+}
