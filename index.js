@@ -7,6 +7,15 @@ const port = 5001;
 
 const path = "./data.json";
 
+writeJsonToFile = function (json) {
+  writeFileSync(path, JSON.stringify(json), (error) => {
+    if (error) {
+      console.log("An error has occurred ", error);
+      return;
+    }
+  });
+};
+
 // get all todos by username
 
 app.get("/mytodos", (req, res) => {
@@ -20,12 +29,7 @@ app.get("/mytodos", (req, res) => {
   try {
     respData = JSON.parse(readFileSync(path));
   } catch (err) {
-    writeFileSync(path, JSON.stringify(fakerdata()), (error) => {
-      if (error) {
-        console.log("An error has occurred ", error);
-        return;
-      }
-    });
+    writeJsonToFile(respData);
     respData = JSON.parse(readFileSync(path));
   }
   return res
@@ -47,12 +51,7 @@ app.post("/mytodos/:id", bodyParser.json(), (req, res) => {
       data.todos.push(req.body);
     }
   });
-  writeFileSync(path, JSON.stringify(respData), (error) => {
-    if (error) {
-      console.log("An error has occurred ", error);
-      return;
-    }
-  });
+
   return res
     .status(200)
     .json(
@@ -78,12 +77,8 @@ app.patch("/mytodos/:username/:todo/status", (req, res) => {
       });
     }
   });
-  writeFileSync(path, JSON.stringify(jsonData), (error) => {
-    if (error) {
-      console.log("An error has occurred ", error);
-      return;
-    }
-  });
+  
+  writeJsonToFile(jsonData);
   return res
     .status(200)
     .json(
@@ -104,12 +99,7 @@ app.delete("/mytodos/:username/:todo", (req, res) => {
       data.todos = data.todos.filter((e) => e.name != req.params.todo);
     }
   });
-  writeFileSync(path, JSON.stringify(jsonData), (error) => {
-    if (error) {
-      console.log("An error has occurred ", error);
-      return;
-    }
-  });
+  writeJsonToFile(jsonData);
   return res
     .status(200)
     .json(
