@@ -18,7 +18,7 @@ writeJsonToFile = function (json) {
 
 // get all todos by username
 
-app.get("/mytodos", (req, res) => {
+app.get("/api/mytodos", (req, res) => {
   if (!req.query.user)
     return res
       .status(404)
@@ -43,7 +43,7 @@ app.get("/mytodos", (req, res) => {
 
 // add new todo item
 
-app.post("/mytodos/:id", bodyParser.json(), (req, res) => {
+app.post("/api/mytodos/:id", bodyParser.json(), (req, res) => {
   respData = JSON.parse(readFileSync(path));
 
   respData.todos.map((data) => {
@@ -51,7 +51,7 @@ app.post("/mytodos/:id", bodyParser.json(), (req, res) => {
       data.todos.push(req.body);
     }
   });
-
+  writeJsonToFile(respData);
   return res
     .status(200)
     .json(
@@ -63,7 +63,7 @@ app.post("/mytodos/:id", bodyParser.json(), (req, res) => {
 
 // update existing todo item
 
-app.patch("/mytodos/:username/:todo/status", (req, res) => {
+app.patch("/api/mytodos/:username/:todo/status", (req, res) => {
   const jsonData = JSON.parse(readFileSync(path));
 
   jsonData.todos.map((data) => {
@@ -89,7 +89,7 @@ app.patch("/mytodos/:username/:todo/status", (req, res) => {
 });
 
 // delete existing todo item
-app.delete("/mytodos/:username/:todo", (req, res) => {
+app.delete("/api/mytodos/:username/:todo", (req, res) => {
   const jsonData = JSON.parse(readFileSync(path));
 
   jsonData.todos.map((data) => {
