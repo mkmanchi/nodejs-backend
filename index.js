@@ -63,7 +63,7 @@ app.post("/api/mytodos/:id", bodyParser.json(), (req, res) => {
 
 // update existing todo item
 
-app.patch("/api/mytodos/:username/:todo/status", (req, res) => {
+app.patch("/api/mytodos/:username/:todo/status", bodyParser.json(), (req, res) => {
   const jsonData = JSON.parse(readFileSync(path));
 
   jsonData.todos.map((data) => {
@@ -72,7 +72,7 @@ app.patch("/api/mytodos/:username/:todo/status", (req, res) => {
     ) {
       data.todos.map((item) => {
         if (item.name === req.params.todo) {
-          item.status = "1";
+          item.status = req.body.status;
         }
       });
     }
