@@ -10,4 +10,8 @@ After any modifications please run prettier to re-format the code using below co
 
 Serve the mock data with 'npm start'
 
+# Demo:
+
+![Demo](https://youtu.be/q93WGtJsSyE)
+
 Thats it !!!
